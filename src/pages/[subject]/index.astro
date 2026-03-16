@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const subjects = await getCollection('subjects');
+  return subjects.map(subject => ({
+    params: { subject: subject.slug },
+    props: { subject },
+  }));
+}
+
+const { subject } = Astro.props;
+const { Content } = await subject.render();
+
+// Dohvati blog postove koji pripadaju ovom predmetu
+const allPosts = await getCollection('blog');
+const posts = allPosts.filter(post => post.data.subject === subject.slug);
+posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout
+  title={subject.data.title}
+  description={subject.data.description}
+>
+  <h1>{subject.data.icon} {subject.data.title}</h1>
+  <p>{subject.data.description}</p>
+  <Content />
+
+  {posts.length > 0 && (
+    <section>
+      <h2>Članci</h2>
+      <ul>
+        {posts.map(post => (
+          <li>
+            <a href={`/${subject.slug}/${post.slug}`}>{post.data.title}</a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+</BaseLayout>
