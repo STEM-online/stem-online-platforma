@@ -1,0 +1,44 @@
+description: Core rules for the STEM-online website using the latest Astro blank template
+alwaysApply: true
+
+# Astro Website Project Rules
+
+- **Tech stack**
+  - Use the latest stable Astro version with the official blank starter template.
+  - Prefer TypeScript for new components and utilities where possible.
+  - Use Astro components for pages and layouts; use framework islands (React/Svelte/etc.) only when interactivity is required.
+
+- **Project structure**
+  - Keep pages in `src/pages`, shared layouts in `src/layouts`, and reusable UI in `src/components`.
+  - Use clear, lowercase, hyphen-separated file names for routes (e.g. `about-us.astro`).
+  - **Content Collections:** Use Astro Content Collections for all structured content (subjects, blog posts, instructors, cities). Define schemas in `src/content/config.ts`.
+  - **Folder structure for collections:**
+    - `src/content/subjects/` – za predmete (Matematika, Fizika, Kemija...)
+    - `src/content/blog/` – za blog postove
+    - `src/content/cities/` – za gradove (Zagreb, Split...)
+    - `src/content/instructors/` – za instruktore
+
+- **Layout and SEO**
+  - All pages must use a `BaseLayout` component located in `src/layouts/BaseLayout.astro`.
+  - The `BaseLayout` must include an integrated SEO component that automatically generates:
+    - `<title>` (format: "{title} – STEM Online")
+    - `<meta name="description">`
+    - `<meta name="robots">` (globalno `index, follow`, osim za staging)
+    - `<link rel="canonical">`
+    - Open Graph tags (for social sharing)
+    - Schema.org JSON-LD based on page type (Course, Article, Person, etc.)
+  - Page-specific data (title, description, schema data) should be passed as props to `BaseLayout`.
+
+- **Styling**
+  - Choose a primary styling approach for the project (e.g. Tailwind or scoped CSS) and keep it consistent.
+  - Keep global styles minimal; prefer component-scoped styles (e.g. `<style>` blocks in `.astro` files) for page-specific rules.
+
+- **Content and accessibility**
+  - Use semantic HTML with a proper heading hierarchy and landmark elements (`header`, `nav`, `main`, `footer`).
+  - Provide meaningful `alt` text for images and appropriate labels for interactive elements.
+  - Ensure focus states are visible and the site is navigable via keyboard.
+
+- **Performance and best practices**
+  - Minimize client-side JavaScript; use `client:*` directives only when necessary for interactivity.
+  - Use Astro’s image optimization tools where appropriate to serve responsive, optimized images.
+  - Aim for pages that work without JavaScript where feasible (progressive enhancement mindset).
