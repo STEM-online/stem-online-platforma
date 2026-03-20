@@ -1,0 +1,16 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+const { city } = Astro.props;
+
+const schema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": `Instrukcije ${city}`,
+    "areaServed": city
+  };
+---
+
+<BaseLayout title={`Instrukcije ${city}`} schema={schema}>
+  <slot />
+</BaseLayout>

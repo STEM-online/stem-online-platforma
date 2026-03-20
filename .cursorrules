@@ -1,0 +1,48 @@
+You are working on an Astro project for a STEM education platform.
+
+Project rules:
+
+- Use Astro (.astro) for pages and layouts
+- Use components for reusable UI (Header, Footer, etc.)
+- Each page MUST use a layout
+- Each layout MUST support SEO props: title, description, schema, url
+
+SEO rules:
+
+- Always include unique title and meta description per page
+- Always include canonical URL
+- Always include Open Graph tags (og:title, og:description, og:image)
+- Always include Twitter card
+
+Structured data (JSON-LD):
+
+- WebSite and WebPage must be included globally in BaseLayout
+- Use BreadcrumbList on all pages
+- Use Article schema for educational content
+- Use LocalBusiness + FAQ for instruction pages
+- Use VideoObject for video pages
+- Use WebApplication for calculator pages
+
+Code style:
+
+- Keep code minimal and clean
+- Avoid unnecessary client-side JS
+- Prefer server-side rendering (Astro default)
+- Use client:visible only when needed
+
+Routing:
+
+- Use dynamic routes for cities and subjects (/instrukcije/[grad]/[predmet])
+- Use slug-based routing for articles (/matematika/[slug])
+
+Performance:
+
+- Lazy load images
+- Use semantic HTML (main, section, article)
+- Keep layouts reusable
+
+Do not:
+
+- Do not duplicate SEO logic across pages
+- Do not hardcode URLs without base domain
+- Do not skip schema implementation

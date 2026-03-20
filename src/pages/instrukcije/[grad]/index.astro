@@ -1,0 +1,9 @@
+---
+import CityLayout from "../../../layouts/CityLayout.astro";
+
+const { grad } = Astro.params;
+---
+
+<CityLayout city={grad}>
+  <h1>Instrukcije u {grad}</h1>
+</CityLayout>
