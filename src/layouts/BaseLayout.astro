@@ -12,9 +12,40 @@ const {
 const globalSchema = [
   {
     "@context": "https://schema.org",
-    "@type": "WebSite",
+    "@type": "EducationalOrganization",
     "name": "STEM Online",
-    "url": "https://www.stem-online.hr"
+    "url": "https://www.stem-online.hr",
+    "description": "Online platforma za instrukcije iz matematike, fizike i kemije",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Online instrukcije",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Course",
+            "name": "Instrukcije iz matematike",
+            "url": "https://www.stem-online.hr/matematika"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Course",
+            "name": "Instrukcije iz fizike",
+            "url": "https://www.stem-online.hr/fizika"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Course",
+            "name": "Instrukcije iz kemije",
+            "url": "https://www.stem-online.hr/kemija"
+          }
+        }
+      ]
+    }
   },
   {
     "@context": "https://schema.org",
@@ -28,23 +59,51 @@ const globalSchema = [
 <html lang="hr">
 <head>
   <meta charset="UTF-8" />
-  <title>{title}</title>
-  <meta name="description" content={description} />
-
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="Croatian" />
+  <meta name="author" content="STEM Online" />
+  <meta name="theme-color" content="#2D1B69" />
+
   <link rel="canonical" href={url} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
   <meta property="og:url" content={url} />
   <meta property="og:image" content="/og-image.jpg" />
+  <meta property="og:locale" content="hr_HR" />
+  <meta property="og:site_name" content="STEM Online" />
 
   <meta name="twitter:card" content="summary_large_image" />
 
   <script type="application/ld+json">
     {JSON.stringify([...globalSchema, ...schema])}
+  </script>
+
+  <script type="speculationrules">
+    {
+      "prerender": [
+        {
+          "source": "document",
+          "where": {
+            "and": [
+              { "href_matches": "/*" },
+              { "not": { "href_matches": ["/api/*"] } },
+              { "not": { "selector_matches": ".no-prerender" } }
+            ]
+          },
+          "eagerness": "moderate"
+        }
+      ]
+    }
   </script>
 </head>
 
@@ -56,3 +115,34 @@ const globalSchema = [
   <Footer />
 </body>
 </html>
+
+<style is:global>
+  :root {
+    --font-header: system-ui, -apple-system-headline, "Segoe UI Bold",
+      "Trebuchet MS", "Roboto Medium", "Noto Sans", Arial, sans-serif;
+    --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      "Calibri", "Candara", "Roboto", "Droid Sans", "Ubuntu",
+      "Helvetica Neue", Arial, sans-serif;
+  }
+
+  html {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-header);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  p, li, blockquote, span, a {
+    font-family: var(--font-body);
+  }
+</style>

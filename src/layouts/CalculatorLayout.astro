@@ -1,17 +1,26 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 
-const { title } = Astro.props;
+const { title, description, url, author } = Astro.props;
 
 const schema = [
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": title
+    "name": title,
+    "applicationCategory": "EducationalApplication",
+    ...(author && {
+      "author": {
+        "@type": "Person",
+        "name": author.name,
+        ...(author.url && { "url": author.url }),
+        ...(author.jobTitle && { "jobTitle": author.jobTitle }),
+      }
+    })
   }
 ];
 ---
 
-<BaseLayout title={title} schema={schema}>
+<BaseLayout title={title} description={description} url={url} schema={schema}>
   <slot />
 </BaseLayout>

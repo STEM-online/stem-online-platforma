@@ -1,11 +1,26 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const websiteSchema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "STEM Online",
+    "url": "https://www.stem-online.hr",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.stem-online.hr/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+];
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout
+  title="STEM Online - Online instrukcije iz matematike, fizike i kemije"
+  description="Pronađi kvalitetne online instrukcije iz matematike, fizike i kemije."
+  url="https://www.stem-online.hr"
+  schema={websiteSchema}
+>
+  <h1>Dobrodošli na STEM Online</h1>
+</BaseLayout>

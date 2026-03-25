@@ -1,6 +1,16 @@
 ---
 import CityLayout from "../../../layouts/CityLayout.astro";
 
+export function getStaticPaths() {
+  const gradovi = [
+    "zagreb", "split", "sisak", "osijek", "slavonski-brod"
+  ];
+
+  return gradovi.map(grad => ({
+    params: { grad }
+  }));
+}
+
 const { grad } = Astro.params;
 ---
 

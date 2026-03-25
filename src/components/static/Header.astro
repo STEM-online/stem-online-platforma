@@ -1,8 +1,61 @@
-<nav>
-    <a href="/">Početna</a>
-    <a href="/matematika">Matematika</a>
-    <a href="/fizika">Fizika</a>
-    <a href="/kemija">Kemija</a>
-    <a href="/instrukcije">Instrukcije</a>
-    <a href="/posao">Karijera</a>
-</nav>
+---
+const navLinks = [
+  { href: "/", label: "Početna" },
+  { href: "/matematika", label: "Matematika" },
+  { href: "/fizika", label: "Fizika" },
+  { href: "/kemija", label: "Kemija" },
+  { href: "/instrukcije", label: "Instrukcije" },
+  { href: "/posao", label: "Karijera" },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header>
+  <a href="/" class="logo" aria-label="STEM Online - Početna stranica">
+    <img 
+        src="/stem_online_logo.webp"
+        alt="STEM Online logo"
+        width="140"
+        height="100"
+        loading="eager"
+        fetchpriority="high"
+    />
+  </a>
+
+  <nav aria-label="Glavna navigacija">
+    {navLinks.map(link => (
+      <a 
+        href={link.href} 
+        aria-current={currentPath === link.href ? "page" : undefined}
+      >
+        {link.label}
+      </a>
+    ))}
+  </nav>
+</header>
+
+<style>
+  header {
+    background-color: #2D1B69;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 1.5rem;
+  }
+
+  nav a:hover {
+    color: #c4b5fd;
+  }
+
+  nav a[aria-current="page"] {
+    color: #c4b5fd;
+    font-weight: 600;
+  }
+</style>

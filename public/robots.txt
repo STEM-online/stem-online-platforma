@@ -3,5 +3,6 @@ Allow: /
 
 Disallow: /admin/
 Disallow: /private/
+Disallow: /api/
 
-Sitemap: https://www.stem-online.hr/sitemap.xml
+Sitemap: https://www.stem-online.hr/sitemap-index.xml

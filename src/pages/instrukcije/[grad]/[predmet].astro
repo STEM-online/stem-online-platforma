@@ -1,5 +1,22 @@
 ---
 import CityLayout from "../../../layouts/CityLayout.astro";
+import Breadcrumb from "../../../components/Breadcrumb.astro";
+
+export function getStaticPaths() {
+  const gradovi = [
+    "zagreb", "split", "sisak", "osijek", "slavonski-brod"
+  ];
+
+  const predmeti = [
+    "matematika", "fizika", "kemija"
+  ];
+
+  return gradovi.flatMap(grad =>
+    predmeti.map(predmet => ({
+      params: { grad, predmet }
+    }))
+  );
+}
 
 const { grad, predmet } = Astro.params;
 
@@ -39,5 +56,12 @@ const breadcrumbSchema = {
   city={grad}
   schema={[breadcrumbSchema]}
 >
+  <Breadcrumb items={[
+    { label: "Početna", href: "/" },
+    { label: "Instrukcije", href: "/instrukcije" },
+    { label: grad, href: `/instrukcije/${grad}` },
+    { label: predmet, href: `/instrukcije/${grad}/${predmet}` }
+  ]} />
+
   <h1>{predmet} instrukcije u {grad}</h1>
 </CityLayout>
