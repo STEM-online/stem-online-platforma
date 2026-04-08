@@ -41,6 +41,13 @@ Performance:
 - Use semantic HTML (main, section, article)
 - Keep layouts reusable
 
+Images:
+
+- Always use modern formats (AVIF, WebP)
+- Always provide fallback using <picture>
+- Always include loading="lazy"
+- Optimize image size and resolution
+
 Do not:
 
 - Do not duplicate SEO logic across pages

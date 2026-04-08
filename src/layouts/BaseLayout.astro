@@ -13,8 +13,14 @@ const globalSchema = [
   {
     "@context": "https://schema.org",
     "@type": "EducationalOrganization",
-    "name": "STEM Online",
+    "name": "STEM-Online",
     "url": "https://www.stem-online.hr",
+    "sameAs": [
+      "https://www.youtube.com/@STEM-online_",
+      "https://www.instagram.com/stem.online_/",
+      "https://www.facebook.com/p/STEM-online-61558212671331/",
+      "https://www.linkedin.com/company/stem-online-hr/?originalSubdomain=hr"
+    ],
     "description": "Online platforma za instrukcije iz matematike, fizike i kemije",
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
@@ -66,7 +72,7 @@ const globalSchema = [
   <meta name="description" content={description} />
   <meta name="robots" content="index, follow" />
   <meta name="language" content="Croatian" />
-  <meta name="author" content="STEM Online" />
+  <meta name="author" content="STEM-Online" />
   <meta name="theme-color" content="#2D1B69" />
 
   <link rel="canonical" href={url} />
@@ -80,7 +86,7 @@ const globalSchema = [
   <meta property="og:url" content={url} />
   <meta property="og:image" content="/og-image.jpg" />
   <meta property="og:locale" content="hr_HR" />
-  <meta property="og:site_name" content="STEM Online" />
+  <meta property="og:site_name" content="STEM-Online" />
 
   <meta name="twitter:card" content="summary_large_image" />
 
@@ -104,6 +110,18 @@ const globalSchema = [
         }
       ]
     }
+  </script>
+
+  <script type="text/partytown">
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'Google Analytics ID');
+  </script>
+  
+  <script
+    type="text/partytown"
+    src="https://www.googletagmanager.com/gtag/js?id=Google Analytics ID">
   </script>
 </head>
 
