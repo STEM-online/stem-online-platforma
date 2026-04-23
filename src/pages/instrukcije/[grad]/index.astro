@@ -1,5 +1,6 @@
 ---
 import CityLayout from "../../../layouts/CityLayout.astro";
+import Map from "../../../components/interactive/Map.astro";
 
 export function getStaticPaths() {
   const gradovi = [
@@ -15,5 +16,9 @@ const { grad } = Astro.params;
 ---
 
 <CityLayout city={grad}>
+
   <h1>Instrukcije u {grad}</h1>
+
+  <Map city={grad}/>
+
 </CityLayout>

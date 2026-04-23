@@ -1,0 +1,130 @@
+---
+const { city = "zagreb" } = Astro.props;
+
+const isZagreb = city.toLowerCase() === "zagreb";
+
+const imageBase = `/maps/${city}-preview`;
+
+const locations = [
+  { title: "Trešnjevka", lat: 45.802, lng: 15.946 },
+  { title: "Maksimir", lat: 45.830, lng: 16.016 },
+  { title: "Novi Zagreb", lat: 45.770, lng: 15.978 },
+  { title: "Centar", lat: 45.813, lng: 15.977 }
+];
+---
+
+{isZagreb && (
+  <link rel="dns-prefetch" href="https://unpkg.com" />
+  <link rel="dns-prefetch" href="https://tile.openstreetmap.org" />
+)}
+
+<div class="map-wrapper">
+
+  <div id="map-section">
+
+    <div id="map">
+      <picture>
+        <source srcset={`${imageBase}.avif`} type="image/avif" />
+        <source srcset={`${imageBase}.webp`} type="image/webp" />
+
+        <img
+          src={`${imageBase}.jpg`}
+          alt={`Mapa za ${city}`}
+          loading="lazy"
+          decoding="async"
+          width="1200"
+          height="500"
+          class="map-preview"
+        />
+      </picture>
+
+    </div>
+
+  </div>
+
+</div>
+
+{isZagreb && (
+  <script type="module" define:vars={{ locations }}>
+    const mapContainer = document.getElementById('map');
+
+    mapContainer?.addEventListener('click', async () => {
+      if (!document.querySelector('#leaflet-css')) {
+        const link = document.createElement('link');
+        link.id = 'leaflet-css';
+        link.rel = 'stylesheet';
+        link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+        link.integrity = 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=';
+        link.crossOrigin = '';
+        document.head.appendChild(link);
+      }
+
+      await new Promise((resolve, reject) => {
+        if (window.L) return resolve();
+        const script = document.createElement('script');
+        script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+        script.integrity = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
+        script.crossOrigin = '';
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
+
+      mapContainer.innerHTML = '';
+
+      const mapEl = document.createElement('div');
+      mapEl.id = 'real-map';
+      mapEl.style.cssText = `
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity .3s ease;
+      `;
+
+      mapContainer.style.position = 'relative';
+      mapContainer.appendChild(mapEl);
+
+      const map = L.map(mapEl).setView([45.815, 15.9819], 11);
+
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19,
+          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(map);
+
+      locations.forEach(l => {
+        L.marker([l.lat, l.lng])
+          .addTo(map)
+          .bindPopup(l.title);
+      });
+
+      requestAnimationFrame(() => {
+        mapEl.style.opacity = 1;
+      });
+
+    }, { once: true });
+  </script>
+)}
+
+<style>
+  .map-wrapper {
+    margin: 4rem 0;
+  }
+
+  .map-preview {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+  }
+
+  #map {
+    position: relative;
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    aspect-ratio: 1200 / 500;
+  }
+</style>

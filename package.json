@@ -16,7 +16,8 @@
     "@astrojs/sitemap": "^3.7.1",
     "@builder.io/partytown": "^0.10.3",
     "astro": "^6.0.8",
-    "astro-robots-txt": "^1.0.0"
+    "astro-robots-txt": "^1.0.0",
+    "leaflet": "^1.9.4"
   },
   "devDependencies": {
     "lightningcss": "^1.32.0"
